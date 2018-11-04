@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 /**
  * Class the define the action
  */
-public enum Acao {
+public enum Action {
 
     REDUZIR("R", 1),
     EMPILHAR("S", 1),
@@ -15,7 +15,7 @@ public enum Acao {
     private String sigla;
     private int reduxString;
 
-    Acao(String sigla, int reduxString) {
+    Action(String sigla, int reduxString) {
         this.sigla = sigla;
         this.reduxString = reduxString;
     }
@@ -28,8 +28,8 @@ public enum Acao {
         return reduxString;
     }
 
-    public static Acao of(String value) {
-        return Stream.of(values()).filter(acao -> value.contains(acao.getSigla())).findFirst()
+    public static Action of(String value) {
+        return Stream.of(values()).filter(action -> value.contains(action.getSigla())).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Nenhuma ação encontrada"));
     }
 }

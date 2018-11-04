@@ -1,4 +1,4 @@
-ESTADOS;inicio;varinicio;varfim;id;inteiro;real;literal;leia;escreva;lit;num;rcb;(;);opr;opm;";";se;entao;fimse;fim;EOF;
+ESTADOS;inicio;varinicio;varfim;id;inteiro;real;lit;leia;escreva;literal;num;atrib;AB_P;FC_P;opr;opm;PT_V;se;entao;fimse;fim;EOF;
 0;S2;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;ET0;
 1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;ET1;AC;
 2;ET2;S4;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;ET2;

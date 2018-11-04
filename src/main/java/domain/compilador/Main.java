@@ -1,6 +1,7 @@
 package domain.compilador;
 
-import domain.compilador.impl.LexicalAnalyserImpl;
+import domain.compilador.impl.LexicalAnalyzerImpl;
+import domain.compilador.sintatico.SintaxAnalyzer;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,22 +13,22 @@ import java.util.Scanner;
  */
 public class Main {
 
-	public static void main(String[] args) {
-		LexicalAnalyser lexicalAnalyser = new LexicalAnalyserImpl();
+    public static void main(String[] args) {
 
-		Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
 
-		System.out.println("Informe o caminho do arquivo de texto a ser lido:\n");
-		String nome = in.nextLine();
-		try {
-			FileReader file = new FileReader(nome);
-			BufferedReader buffer = new BufferedReader(file);
-			lexicalAnalyser.analyse(buffer);
-
-		} catch (FileNotFoundException e) {
-			in.close();
-			throw new RuntimeException(String.format("O arquivo %s não foi encontrado", nome));
-		}
-		in.close();
-	}
+        System.out.println("Informe o caminho do arquivo de texto a ser lido:\n");
+        String nome = in.nextLine();
+        try {
+            FileReader file = new FileReader(nome);
+            BufferedReader buffer = new BufferedReader(file);
+            LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerImpl(buffer);
+            SintaxAnalyzer sintaxAnalyzer = new SintaxAnalyzer(lexicalAnalyzer);
+            sintaxAnalyzer.analyse();
+        } catch (FileNotFoundException e) {
+            in.close();
+            throw new RuntimeException(String.format("O arquivo %s não foi encontrado", nome));
+        }
+        in.close();
+    }
 }

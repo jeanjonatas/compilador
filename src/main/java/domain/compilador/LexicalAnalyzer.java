@@ -8,10 +8,11 @@ import java.io.BufferedReader;
  *
  * @author Jean Borba
  */
-public interface LexicalAnalyser {
+public interface LexicalAnalyzer {
 
-  /**
-   * Analisa o codigo e devolve os tokens encontrados
-   */
-	String analyse(BufferedReader bufferedReader);
+    /**
+     * Analisa o codigo e devolve os tokens encontrados
+     */
+    Symbol analyse();
+
 }
