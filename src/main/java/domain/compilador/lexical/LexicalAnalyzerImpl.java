@@ -114,10 +114,10 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
                     proximoEstado = transitionTable[estadoAtual][column];
                 }
 
-
                 if (proximoEstado != -1) {
-                    if ((symbol.equals("\n") || symbol.equals("\r")) && !buffer.toString().contains("\"")) {
+                    if ((symbol.equals("\n") || symbol.equals("\r"))) {
                         linha++;
+                        coluna = 0;
                     }
                     estadoAtual = proximoEstado;
                     if (!symbol.equals("\n") && !symbol.equals("\t") && !symbol.equals(" ")

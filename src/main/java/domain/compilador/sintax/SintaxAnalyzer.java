@@ -50,6 +50,7 @@ public class SintaxAnalyzer {
 
     private void erro(Operation operation) {
         ErrorMessage error = ErrorMessage.of(operation.getValor());
+        System.out.println(error.getMessage());
         throw new IllegalArgumentException(error.getMessage());
     }
 
