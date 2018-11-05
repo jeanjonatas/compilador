@@ -1,7 +1,7 @@
 package domain.compilador;
 
-import domain.compilador.impl.LexicalAnalyzerImpl;
-import domain.compilador.sintatico.SintaxAnalyzer;
+import domain.compilador.lexical.LexicalAnalyzerImpl;
+import domain.compilador.sintax.SintaxAnalyzer;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package domain.compilador.sintatico;
+package domain.compilador.sintax;
 
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.math.NumberUtils;

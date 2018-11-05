@@ -1,7 +1,7 @@
-package domain.compilador.sintatico;
+package domain.compilador.lexical;
 
 import domain.compilador.LexicalAnalyzer;
-import domain.compilador.impl.LexicalAnalyzerImpl;
+import domain.compilador.Symbol;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,9 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class SintaxAnalyzerTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    private SintaxAnalyzer sintaxAnalyzer;
+public class LexicalAnalyzerImplTest {
+
     private LexicalAnalyzer lexicalAnalyzer;
 
     @Before
@@ -21,14 +22,21 @@ public class SintaxAnalyzerTest {
         File file = new File(classLoader.getResource("codigo.txt").getFile());
         BufferedReader buffer = new BufferedReader(new FileReader(caminho(file)));
         lexicalAnalyzer = new LexicalAnalyzerImpl(buffer);
-        sintaxAnalyzer = new SintaxAnalyzer(lexicalAnalyzer);
     }
 
     @Test
-    public void analyse() {
+    public void testAnalyse() throws Exception {
+        Symbol tokens = null;
 
-        sintaxAnalyzer.analyse();
+        tokens = lexicalAnalyzer.analyse();
 
+        assertThat(tokens.getLexema()).isEqualTo("inicio");
+    }
+
+    private BufferedReader bufferedReaderer() throws FileNotFoundException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("codigo.txt").getFile());
+        return new BufferedReader(new FileReader(caminho(file)));
     }
 
     private String caminho(File file) {
@@ -36,4 +44,5 @@ public class SintaxAnalyzerTest {
         return absolutePath.replaceAll("%20", " ").replaceAll("%c2%ba", "º")
                 .replaceAll("%c3%ad", "í");
     }
+
 }

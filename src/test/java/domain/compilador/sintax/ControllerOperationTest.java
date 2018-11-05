@@ -1,4 +1,4 @@
-package domain.compilador.sintatico;
+package domain.compilador.sintax;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package domain.compilador.impl;
+package domain.compilador.lexical;
 
 import domain.compilador.LexicalAnalyzer;
 import domain.compilador.Symbol;
@@ -84,12 +84,12 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
             int transitionTable[][] = transitionTable();
             boolean notClassified = true;
             boolean firstTime = true;
-            if(value == -1){
+            if (value == -1) {
                 String key = "eof";
                 Symbol token = new Symbol(Token.EOF.getToken(), key);
                 classifiedSymbol = token;
                 System.out.println(token);
-                return  classifiedSymbol;
+                return classifiedSymbol;
             }
             while (notClassified && value != -1) {
                 String bufferValue = buffer.toString();
@@ -167,12 +167,17 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
         } catch (Exception e) {
             mensagemErro(character, estadoAtual, column);
         }
-        long fim = System.currentTimeMillis();
-       /*
-        System.out.println(reservedWords);
-        System.out.println("Tempo total de análise léxica: " + (fim - inicio) / 1000.0 + " segundos");
-        */
         return classifiedSymbol;
+    }
+
+    @Override
+    public int getLine() {
+        return this.linha;
+    }
+
+    @Override
+    public int getColumn() {
+        return this.coluna;
     }
 
 

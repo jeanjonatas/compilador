@@ -15,4 +15,8 @@ public interface LexicalAnalyzer {
      */
     Symbol analyse();
 
+    int getLine();
+
+    int getColumn();
+
 }
