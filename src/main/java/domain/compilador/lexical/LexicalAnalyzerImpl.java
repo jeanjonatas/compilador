@@ -167,8 +167,29 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
         } catch (Exception e) {
             mensagemErro(character, estadoAtual, column);
         }
+
+        setTipo(classifiedSymbol);
         return classifiedSymbol;
     }
+
+    public void setTipo(Symbol symbol) {
+        if (symbol.getToken().equals("opm")) {
+            symbol.setTipo(symbol.getLexema());
+        } else if (symbol.getToken().equals("opr")) {
+            symbol.setTipo(symbol.getLexema());
+        } else if (symbol.getToken().equals("rcb")) {
+            symbol.setTipo("=");
+        } else if (symbol.getToken().equals("inteiro")) {
+            symbol.setTipo("int");
+        } else if (symbol.getToken().equals("real")) {
+            symbol.setTipo("double");
+        } else if (symbol.getToken().equals("lit")) {
+            symbol.setTipo("literal");
+        } else if (symbol.getLexema().equals("B")) {
+            System.out.println("a");
+        }
+    }
+
 
     @Override
     public int getLine() {

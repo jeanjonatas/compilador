@@ -5,10 +5,7 @@ import domain.compilador.lexical.LexicalAnalyzerImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 
 public class SintaxAnalyzerTest {
 
@@ -16,7 +13,7 @@ public class SintaxAnalyzerTest {
     private LexicalAnalyzer lexicalAnalyzer;
 
     @Before
-    public void setUp() throws FileNotFoundException {
+    public void setUp() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("codigo.txt").getFile());
         BufferedReader buffer = new BufferedReader(new FileReader(caminho(file)));

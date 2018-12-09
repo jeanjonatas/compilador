@@ -2,19 +2,26 @@ package domain.compilador.sintax;
 
 import domain.compilador.LexicalAnalyzer;
 import domain.compilador.Symbol;
+import domain.compilador.semantic.SemanticAnalyser;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class SintaxAnalyzer {
 
     private Stack<Integer> estados = new Stack<>();
+    private Stack<Symbol> simbolos = new Stack<>();
     private ControllerOperation controllerOperation;
     private LexicalAnalyzer lexicalAnalyzer;
     private Symbol symbol = new Symbol("", "");
+    private SemanticAnalyser semanticAnalyser;
 
-    public SintaxAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
+    public SintaxAnalyzer(LexicalAnalyzer lexicalAnalyzer) throws IOException {
         estados.push(0);
         this.lexicalAnalyzer = lexicalAnalyzer;
+        this.semanticAnalyser = new SemanticAnalyser();
         this.controllerOperation = new ControllerOperation();
     }
 
@@ -29,10 +36,10 @@ public class SintaxAnalyzer {
             operation = controllerOperation.getOperation(topState, token);
             switch (operation.getAction()) {
                 case EMPILHAR:
-                    empilhar(operation);
+                    empilhar(symbol, operation);
                     break;
                 case REDUZIR:
-                    reduzir(operation);
+                    reduzir(symbol, operation);
                     break;
                 case ACEITAR:
                     aceitar();
@@ -61,20 +68,37 @@ public class SintaxAnalyzer {
 
     private void aceitar() {
         System.out.println("A cadeia foi aceita com sucesso !");
+        semanticAnalyser.writeFile();
     }
 
-    private void reduzir(Operation operation) {
+    private void reduzir(Symbol symbol, Operation operation) {
         Sentences production = Sentences.of(operation.getValor());
+        List<Symbol> symbolsSemantic = new ArrayList<>();
         for (int i = 0; i < production.getSize(); i++) {
             this.estados.pop();
+            Symbol symbolRemoved = this.simbolos.pop();
+            symbolsSemantic.add(symbolRemoved);
         }
         int state = controllerOperation.getStateNonTerminal(this.estados.peek(), production.getGenerator());
         this.estados.push(state);
+        this.simbolos.push(new Symbol(production.getGenerator(), null));
 
         System.out.println(production);
+        if (semanticAnalyser.existsRule(operation.getValor())) {
+
+            try {
+                symbolsSemantic.add(this.simbolos.peek());
+                semanticAnalyser.analyseSemantic(operation.getValor(), symbol, symbolsSemantic);
+            } catch (Exception ex) {
+                String msg = "Um erro ocorreu na linha %s e na coluna %s";
+                throw new IllegalArgumentException(String.format(msg, lexicalAnalyzer.getLine(), lexicalAnalyzer.getColumn()), ex);
+            }
+        }
+//Chamar o semântico
     }
 
-    private void empilhar(Operation operation) {
+    private void empilhar(Symbol simbolo, Operation operation) {
+        this.simbolos.push(simbolo);
         this.estados.push(operation.getValor());
         this.symbol = lexicalAnalyzer.analyse();
     }

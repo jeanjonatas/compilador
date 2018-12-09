@@ -6,6 +6,7 @@ import domain.compilador.sintax.SintaxAnalyzer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -28,6 +29,8 @@ public class Main {
         } catch (FileNotFoundException e) {
             in.close();
             throw new RuntimeException(String.format("O arquivo %s não foi encontrado", nome));
+        } catch (IOException e) {
+            throw new RuntimeException("Arquivo de saida não foi encontrado", e);
         }
         in.close();
     }

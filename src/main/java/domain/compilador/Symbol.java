@@ -4,48 +4,52 @@ import java.util.Objects;
 
 public class Symbol {
 
-  private String tipo;
-  private final String token;
-  private final String lexema;
+    private String tipo;
+    private String lexema;
+    private final String token;
 
-  public Symbol(String token, String lexema) {
-    this.token = token;
-    this.lexema = lexema;
-  }
+    public Symbol(String token, String lexema) {
+        this.token = token;
+        this.lexema = lexema;
+    }
 
-  public String getTipo() {
-    return tipo;
-  }
+    public String getTipo() {
+        return tipo;
+    }
 
-  public void setTipo(String tipo) {
-    this.tipo = tipo;
-  }
+    public void setLexema(String lexema) {
+        this.lexema = lexema;
+    }
 
-  public String getToken() {
-    return token;
-  }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-  public String getLexema() {
-    return lexema;
-  }
+    public String getToken() {
+        return token;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Symbol symbol = (Symbol) o;
-    return Objects.equals(token, symbol.token) &&
-        Objects.equals(lexema, symbol.lexema);
-  }
+    public String getLexema() {
+        return lexema;
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(token, lexema);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Symbol symbol = (Symbol) o;
+        return Objects.equals(token, symbol.token) &&
+                Objects.equals(lexema, symbol.lexema);
+    }
 
-  @Override
-  public String toString() {
-    return String.format(
-        "Symbol (token=%s, lexema=%s)", this.token, this.lexema);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(token, lexema);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Symbol (token=%s, lexema=%s)", this.token, this.lexema);
+    }
 }

@@ -33,7 +33,6 @@ public enum ErrorMessage {
     ERROR_46("entao não foi encontrado na leitura", 46),
     ERROR_47("identificador, leia, escreva, se ou fimse não foram encontrados na leitura", 47);
 
-
     public int getCodigo() {
         return codigo;
     }
