@@ -14,17 +14,16 @@ public class CodeGenerator {
     private String body = "";
     private PrintWriter printWriter;
     private BufferedWriter buffWrite;
-    private int temporaryCounter = 0;
 
     public CodeGenerator() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         writer = new FileWriter("C:\\compilador\\main.txt", true);
         buffWrite = new BufferedWriter(writer);
         printWriter = new PrintWriter(writer);
-        createHeader();
     }
 
-    public void writeLine() throws IOException {
+    public void writeLine(int temporaryCounter) throws IOException {
+        createHeader(temporaryCounter);
         writer = new FileWriter("C:/compilador/main.txt");
         buffWrite = new BufferedWriter(writer);
         printWriter = new PrintWriter(writer);
@@ -37,11 +36,7 @@ public class CodeGenerator {
         body += line + "\n";
     }
 
-    public void addTempory() {
-        this.temporaryCounter++;
-    }
-
-    private void createHeader() {
+    private void createHeader(int temporaryCounter) {
         String header = "#include<stdio.h>\r\n";
         header += "typedef char literal[256];\r\n";
         header += "void main(void)\r\n";
@@ -49,15 +44,17 @@ public class CodeGenerator {
         header += "/*----Variaveis temporarias----*/\r\n";
 
 
-        while (temporaryCounter > -1) {
-            header += String.format("int T%s;\r\n", temporaryCounter);
-            temporaryCounter--;
+        int tX = 0;
+        while (tX <= temporaryCounter) {
+            header += String.format("int T%s;\r\n", tX);
+            tX++;
         }
         header += "/*-----------------------------*/\r\n";
 
-        body += header;
-
-
+        String temporary = header;
+        temporary += body;
+        body = temporary;
+        body += "}\r\n";
     }
 
 }

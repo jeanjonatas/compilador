@@ -63,6 +63,6 @@ public enum Sentences {
 
     @Override
     public String toString() {
-        return String.format("%s  %s --> %s", this.ordinal(), this.generator, this.generated);
+        return String.format("%s  %s --> %s", this.ordinal() + 1, this.generator, this.generated);
     }
 }

@@ -127,8 +127,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
                         buffer.append(symbol);
                     }
                 } else {
-                    if (reservedWords.containsKey(buffer.toString())) {
-                        Symbol findSymbol = reservedWords.get(buffer.toString());
+                    String compareId = buffer.toString().replaceAll(" ", "");
+                    if (reservedWords.containsKey(compareId)) {
+                        Symbol findSymbol = reservedWords.get(compareId);
                         System.out.println(findSymbol);
                         buffer = new StringBuilder();
                         buffer.append(symbol);
@@ -169,6 +170,13 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
         }
 
         setTipo(classifiedSymbol);
+        if (classifiedSymbol.getToken().equals("id")) {
+            classifiedSymbol = this.reservedWords.get(classifiedSymbol.getLexema());
+        }
+        if (classifiedSymbol.getToken().equals("literal")) {
+            classifiedSymbol.setLexema(classifiedSymbol.getLexema().substring(1, classifiedSymbol.getLexema().length()));
+
+        }
         return classifiedSymbol;
     }
 
@@ -177,16 +185,20 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer {
             symbol.setTipo(symbol.getLexema());
         } else if (symbol.getToken().equals("opr")) {
             symbol.setTipo(symbol.getLexema());
-        } else if (symbol.getToken().equals("rcb")) {
+        } else if (symbol.getToken().equals("atrib")) {
             symbol.setTipo("=");
         } else if (symbol.getToken().equals("inteiro")) {
             symbol.setTipo("int");
         } else if (symbol.getToken().equals("real")) {
-            symbol.setTipo("double");
+            symbol.setTipo("real");
         } else if (symbol.getToken().equals("lit")) {
             symbol.setTipo("literal");
-        } else if (symbol.getLexema().equals("B")) {
-            System.out.println("a");
+        } else if (symbol.getToken().equals("num")) {
+            if (symbol.getLexema().contains(".")) {
+                symbol.setTipo("real");
+            } else {
+                symbol.setTipo("int");
+            }
         }
     }
 

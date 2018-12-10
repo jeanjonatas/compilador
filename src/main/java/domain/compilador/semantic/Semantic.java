@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface Semantic {
 
-    String executar(Symbol simbolo, List<Symbol> symbolsProduced);
+    String executar(List<Symbol> symbolsProduced);
 }

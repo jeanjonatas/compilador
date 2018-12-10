@@ -6,7 +6,7 @@ public class Symbol {
 
     private String tipo;
     private String lexema;
-    private final String token;
+    private String token;
 
     public Symbol(String token, String lexema) {
         this.token = token;
@@ -15,6 +15,10 @@ public class Symbol {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setLexema(String lexema) {

@@ -12,6 +12,8 @@ import java.util.List;
 public class SemanticAnalyser {
 
     private CodeGenerator codeGenerator;
+    private static int temporaryCounter = -1;
+
 
     public SemanticAnalyser() throws IOException {
         codeGenerator = new CodeGenerator();
@@ -24,13 +26,22 @@ public class SemanticAnalyser {
 
     public void analyseSemantic(int index, Symbol symbol, List<Symbol> symbolsProduced) {
         SemanticRules rule = SemanticRules.of(index);
-        String line = rule.executar(symbol, symbolsProduced);
+        String line = rule.executar(symbolsProduced);
         codeGenerator.addCode(line);
+    }
+
+    public static int getCounter() {
+        return temporaryCounter;
+    }
+
+    public static int getAndAddCounter() {
+        temporaryCounter++;
+        return temporaryCounter;
     }
 
     public void writeFile() {
         try {
-            codeGenerator.writeLine();
+            codeGenerator.writeLine(temporaryCounter);
         } catch (IOException e) {
             throw new IllegalArgumentException("Um erro ocorreu na hora de salvar o arquivo");
         }

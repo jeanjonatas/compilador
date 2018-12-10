@@ -18,6 +18,6 @@ public class CodeGeneratorTest {
         codeGenerator.addCode("\n");
         codeGenerator.addCode("Teste2");
 
-        codeGenerator.writeLine();
+        codeGenerator.writeLine(1);
     }
 }

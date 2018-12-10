@@ -33,6 +33,9 @@ public class SintaxAnalyzer {
         do {
             int topState = estados.peek();
             String token = symbol.getToken();
+            if(symbol.getToken().equals("id") && symbol.getLexema().equals("B") || topState == 36){
+                System.out.println("");
+            }
             operation = controllerOperation.getOperation(topState, token);
             switch (operation.getAction()) {
                 case EMPILHAR:
@@ -72,6 +75,9 @@ public class SintaxAnalyzer {
     }
 
     private void reduzir(Symbol symbol, Operation operation) {
+        if(operation.getValor() == 19){
+            System.out.println(operation);
+        }
         Sentences production = Sentences.of(operation.getValor());
         List<Symbol> symbolsSemantic = new ArrayList<>();
         for (int i = 0; i < production.getSize(); i++) {
